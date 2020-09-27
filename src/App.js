@@ -1,60 +1,37 @@
-import React from "react";
-import "./App.css";
-import SocialFollow from "./socialFollow";
+import React, { Fragment, Suspense, lazy } from "react";
+import { MuiThemeProvider, CssBaseline } from "@material-ui/core";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import theme from "./theme";
+import GlobalStyles from "./GlobalStyles";
+import * as serviceWorker from "./serviceWorker";
+import Pace from "./shared/components/Pace";
+
+const LoggedInComponent = lazy(() => import("./logged_in/components/Main"));
+
+const LoggedOutComponent = lazy(() => import("./logged_out/components/Main"));
 
 function App() {
   return (
-    <div className="App">
-      <div className="buildingPage">
-        <header id="header">
-          <h1>home-umzüge.de</h1>
-        </header>
-
-        <div className="content">
-          <h1>&lt; baustelle /&gt;</h1>
-          <p>Working day and night!</p>
-          <SocialFollow />
-        </div>
-
-        <div id="outerCraneContainer">
-          <div className="buildings">
-            <div />
-            <div className={1} />
-            <div className={2} />
-            <div className={3} />
-            <div className={4} />
-          </div>
-          <div className="crane craneThree">
-            <div className="line lineOne" />
-            <div className="line lineTwo" />
-            <div className="line lineThree" />
-            <div className="stand" />
-            <div className="weight" />
-            <div className="cabin" />
-            <div className="arm" />
-          </div>
-          <div className="crane craneTwo">
-            <div className="line lineOne" />
-            <div className="line lineTwo" />
-            <div className="line lineThree" />
-            <div className="stand" />
-            <div className="weight" />
-            <div className="cabin" />
-            <div className="arm" />
-          </div>
-          <div className="crane craneOne">
-            <div className="line lineOne" />
-            <div className="line lineTwo" />
-            <div className="line lineThree" />
-            <div className="stand" />
-            <div className="weight" />
-            <div className="cabin" />
-            <div className="arm" />
-          </div>
-        </div>
-      </div>
-    </div>
+    <BrowserRouter>
+      <MuiThemeProvider theme={theme}>
+        <CssBaseline />
+        <GlobalStyles />
+        <Pace color={theme.palette.primary.light} />
+        <Suspense fallback={<Fragment />}>
+          <Switch>
+            <Route path="/c">
+              <LoggedInComponent />
+            </Route>
+            <Route>
+              <LoggedOutComponent />
+            </Route>
+          </Switch>
+        </Suspense>
+      </MuiThemeProvider>
+    </BrowserRouter>
   );
 }
+
+serviceWorker.register();
 
 export default App;
