@@ -1,0 +1,8 @@
+@font-face {
+        font-family: "open-sans-700";
+        src: url("./assets/fonts/open-sans-700.ttf") format("truetype");
+      }
+@font-face {
+        font-family: "arial-regular";
+        src: url("./assets/fonts/arial-regular.ttf") format("truetype");
+      }

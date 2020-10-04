@@ -1,37 +1,16 @@
-import React, { Fragment, Suspense, lazy } from "react";
-import { MuiThemeProvider, CssBaseline } from "@material-ui/core";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
-import theme from "./theme";
-import GlobalStyles from "./GlobalStyles";
-import * as serviceWorker from "./serviceWorker";
-import Pace from "./shared/components/Pace";
-
-const LoggedInComponent = lazy(() => import("./logged_in/components/Main"));
-
-const LoggedOutComponent = lazy(() => import("./logged_out/components/Main"));
+import React from "react";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import "./icons.js";
+import Main from "./screens/Main";
+import "./style.css";
 
 function App() {
   return (
-    <BrowserRouter>
-      <MuiThemeProvider theme={theme}>
-        <CssBaseline />
-        <GlobalStyles />
-        <Pace color={theme.palette.primary.light} />
-        <Suspense fallback={<Fragment />}>
-          <Switch>
-            <Route path="/c">
-              <LoggedInComponent />
-            </Route>
-            <Route>
-              <LoggedOutComponent />
-            </Route>
-          </Switch>
-        </Suspense>
-      </MuiThemeProvider>
-    </BrowserRouter>
+    <Router>
+      <Route path="/" exact component={Main} />
+      <Route path="/Main/" exact component={Main} />
+    </Router>
   );
 }
-
-serviceWorker.register();
 
 export default App;
